@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drink Selector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Choose Your Drink</h1>
+    <form method="POST">
+        <label for="drink">Select a Base Drink:</label>
+        <select name="drink" id="drink">
+            {% for drink in base_drinks %}
+                <option value="{{ drink }}">{{ drink }}</option>
+            {% endfor %}
+        </select>
+
+        <h3>Add-ins:</h3>
+        {% for add_in in add_ins %}
+            <input type="checkbox" name="add_in" value="{{ add_in }}"> {{ add_in }} <br>
+        {% endfor %}
+
+        <h3>Toppings:</h3>
+        {% for topping in toppings %}
+            <input type="checkbox" name="topping" value="{{ topping }}"> {{ topping }} <br>
+        {% endfor %}
+
+        <button type="submit">Submit</button>
+    </form>
+
+    {% if selected_drink %}
+        <h2>Your Selection:</h2>
+        <p><strong>Base Drink:</strong> {{ selected_drink }}</p>
+        <p><strong>Add-ins:</strong> {{ selected_add_ins | join(", ") }}</p>
+        <p><strong>Toppings:</strong> {{ selected_toppings | join(", ") }}</p>
+    {% endif %}
+</body>
+</html>
